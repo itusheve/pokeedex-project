@@ -24,24 +24,20 @@ def get_icon_url(name: str):
 @app.route('/api/pokemons')
 def get_pokemons():
     pokemons = get_pokemons_cache()
-    # Query params
     page = int(request.args.get("page", 1))
     size = int(request.args.get("size", 20))
     sort = request.args.get("sort", "asc")
     ptype = request.args.get("type", "").strip()
     query = request.args.get("q", "").lower()
 
-    # Filtering
     filtered = pokemons
     if ptype:
         filtered = [p for p in filtered if ptype.lower() in (p["type_one"].lower(), p["type_two"].lower())]
     if query:
         filtered = [p for p in filtered if query in p["name"].lower()]
 
-    # Sorting
     filtered = sorted(filtered, key=lambda x: x["number"], reverse=(sort == "desc"))
 
-    # Pagination
     total = len(filtered)
     start = (page - 1) * size
     end = start + size

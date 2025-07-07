@@ -75,7 +75,7 @@ function App() {
             dataLength={pokemons.length}
             next={fetchNextPage}
             hasMore={!!hasNextPage}
-            loader={<div>Loading more...</div>}
+            loader={<div>Loading...</div>}
             endMessage={
               <div style={{ opacity: 0.6, textAlign: "center" }}>
                 No more Pokémon!
